@@ -4,9 +4,9 @@
 
 # Haskell
 .stack-work
-/dist/
+dist/
 
 # Rust
-/target/
+target/
 Cargo.lock
 **/*.rs.bk
