@@ -2,7 +2,6 @@ module Day2 where
 
 import qualified Data.List       as L
 import qualified Data.Map.Strict as M
---import qualified Data.Set        as S
 import           Data.Text       (Text)
 import qualified Data.Text       as T
 import           Input           (inputFor)
@@ -18,8 +17,8 @@ instance Semigroup Counts where
 instance Monoid Counts where
   mempty = Counts 0 0
 
-countsProduct :: Counts -> Int
-countsProduct (Counts x y) = x*y
+prod :: Counts -> Int
+prod (Counts x y) = x*y
 
 answer1 = do
   input <- T.lines <$> inputFor "Day2"
@@ -27,7 +26,7 @@ answer1 = do
         $ foldr getCounts mempty
         . T.foldr charCounts M.empty <$> input
 
-  pure $ countsProduct counts
+  pure $ prod counts
 
 getCounts :: Int -> Counts -> Counts
 getCounts x counts

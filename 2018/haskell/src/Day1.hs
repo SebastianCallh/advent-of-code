@@ -1,16 +1,14 @@
 module Day1 where
 
-
+import qualified Data.Text as T
 import qualified Data.IntSet          as S
 import           Data.List            (unfoldr)
 import           Data.Void            (Void)
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
+import Input (inputFor)
 
-type Parser = Parsec Void String
-
-inputFor :: String -> IO String
-inputFor day = readFile $ "./input/" <> day <>".txt"
+type Parser = Parsec Void T.Text
 
 answer1 = do
   eDigits <- readDigits
@@ -25,7 +23,7 @@ answer2 = do
       | otherwise            = solve (S.insert freq seen) (freq + x) xs
 
 readDigits = do
-  input <- lines <$> inputFor "Day1"
+  input <- T.lines <$> inputFor "Day1"
   pure $ traverse (parse digit "") input
 
 digit :: Parser Int
