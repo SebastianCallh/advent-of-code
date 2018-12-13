@@ -7,15 +7,15 @@ fn main() {
     let input = fs::read_to_string("./../../input/Day1.txt").unwrap();
     
     // Task 1
-    let changes = input.lines().map(parse_int);
-    println!("Answer 1: {}", changes.clone().fold(0, std::ops::Add::add));
+    let changes : Vec<_> = input.lines().map(parse_int).collect();
+    let sum : i32 = changes.iter().sum();
+    println!("Answer part 1: {}", sum);
 
     // Task 2
     let mut seen = HashSet::new();
-    let thing : Vec<i32> = changes.collect();
     let mut freq = 0;
     for i in 0.. {
-        let change = thing[i % thing.len()];
+        let change = changes[i % changes.len()];
         if seen.contains(&freq) {
             break;
         } else {
@@ -24,7 +24,7 @@ fn main() {
         }
     }
     
-    println!("Answer 2: {}", freq);
+    println!("Answer part 2: {}", freq);
 }
 
 fn parse_int(line : &str) -> i32 {
