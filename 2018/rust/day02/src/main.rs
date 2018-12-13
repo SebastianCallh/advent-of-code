@@ -1,38 +1,46 @@
 use std::fs;
+use std::collections::HashMap;
 
 fn main() {
     let input = fs::read_to_string("./../../input/Day2.txt").unwrap();
-    let lines = input.lines();
-    let min_dist : (i32, i32) = (std::i32::MAX, std::i32::MAX);
-    println!("{:?}", "hejhej".chars().);
-    println!("cartesian product: {:?}", cartesian_product(&['a', 'b', 'c'], &['d', 'e', 'f']));
-        
-//    println!("cartesian product: {:?}", 
+    let lines : Vec<_> = input.lines().map(|l| String::from(l)).collect();
+    let mut min_sim = String::from("");
+
+    // Part 1
+    let (twos, threes) = lines.iter()
+        .fold((0, 0), |(twoes, threes), line| {
+            let map = line.chars()
+                .fold(HashMap::new(), |mut counts, chr| {
+                    *counts.entry(chr).or_insert(0) += 1;
+                    counts
+                });
+            let contains_two   = map.values().any(|&c| c == 2);
+            let contains_three = map.values().any(|&c| c == 3);
+            (if contains_two   { twoes  + 1 } else { twoes },
+             if contains_three { threes + 1 } else { threes })
+        });
+
+    println!("Answer part 1: {}", twos * threes);
     
-/*    for x in lines.take(10) {
-        for y in lines {
-            println!("{}", hamming_dist(&['a', 'b', 'c', 'd'], &['a', 'b', 'c', 'd']));
-        }
-    }*/
-}
-
-fn hamming_dist(arr1: &[char], arr2: &[char]) -> i32 {    
-    arr1.iter().zip(arr2.iter())
-        .fold(0, |acc, (x, y)| {
-            if x != y {
-                acc + 1 
-            } else {
-                acc
+    // Part 2
+    for x in &lines {
+        for y in &lines {
+            let cur_sim = hamming_sim(x, y);
+            if cur_sim.len() + 1 == x.len() {
+                min_sim = cur_sim;
             }
-        })
-}
-
-fn cartesian_product<'a, T>(arr1: &'a [T], arr2: &'a [T]) -> Vec<(&'a T, &'a T)> {
-    let mut prod = Vec::new();
-    for x in arr1 {
-        for y in arr2 {
-            prod.push((x, y));
         }
     }
-    prod
+    
+    println!("Answer part 2: {:?}", min_sim);
+}
+
+fn hamming_sim(str1: &str, str2: &str) -> String {
+    str1.chars().zip(str2.chars())
+        .fold(String::new(), |mut acc, (x, y)| {
+            if x == y {
+                acc.push(x);
+            }
+            acc
+        })
 }
