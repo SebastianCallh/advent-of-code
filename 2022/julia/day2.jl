@@ -5,18 +5,12 @@ winning(n) = succ(n)
 losing(n) = prev(n)
 
 function score(round)
-    win = 6
-    tie = 3
+    get_score(o, m) = begin
+        succ(o) == m && return 6
+        o == m && return 3
+    end
     op_shape, my_shape = round
-    score_table = Dict(
-        (1, 1) => tie,
-        (2, 2) => tie,
-        (3, 3) => tie,
-        (1, 2) => win,
-        (2, 3) => win,
-        (3, 1) => win,
-    )
-    get(score_table, (op_shape, my_shape), 0) + my_shape
+    get_score(op_shape, my_shape) + my_shape
 end
 
 function ints(line)
