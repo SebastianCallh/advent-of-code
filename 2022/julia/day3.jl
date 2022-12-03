@@ -6,15 +6,13 @@ function prios(items)
     getindex.(Ref(p), items)
 end
 
-chars(str) = [c for c in str]
-
 function split(sack)
     n = div(length(sack), 2)
     sack[begin:n], sack[n+1:end]
 end
 
 function overlaps(sack)
-    collect(intersect(Set.(chars.(sack))...))
+    collect(intersect(Set.(collect.(sack))...))
 end
 
 function groups(lines)
