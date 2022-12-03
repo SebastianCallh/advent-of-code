@@ -6,7 +6,7 @@ function prios(items)
     getindex.(Ref(p), items)
 end
 
-function split(sack)
+function compartments(sack)
     n = div(length(sack), 2)
     sack[begin:n], sack[n+1:end]
 end
@@ -21,7 +21,7 @@ function groups(lines)
 end
 
 function sol1(lines)
-    sum(prios.(reduce(vcat, overlaps.(split.(lines)))))
+    sum(prios.(reduce(vcat, overlaps.(compartments.(lines)))))
 end
 
 function sol2(lines)
