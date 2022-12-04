@@ -1,23 +1,26 @@
 function parse(line)
-    torange(elf) = range(tryparse.(Int32, split(elf, "-"))...)
-    elf1, elf2 = split(line, ",")
-    torange(elf1), torange(elf2)
+    parseint(elf) = tryparse.(Int32, split(elf, "-"))
+    parseint.(split(line, ","))
 end
 
-function any_subset(a, b)
-    (a[begin] <= b[begin] && b[end] <= a[end]) || (b[begin] <= a[begin] && a[end] <= b[end])
+function any_subset(((min1, max1), (min2, max2)))
+    (min1 <= min2 && max2 <= max1) ||
+    (min2 <= min1 && max1 <= max2)
 end
 
-function any_overlap(a, b)
-    intersect(Set(a), Set(b)) != Set()
+function any_overlap(((min1, max1), (min2, max2)))
+    (min1 <= min2 && min2 <= max1) ||
+    (min2 <= min1 && min1 <= max2) ||
+    (min1 <= max2 && max2 <= max1) ||
+    (min2 <= max1 && max1 <= max2)
 end
 
 function sol1(input)
-   sum(Int32.(map(Base.splat(any_subset), parse.(input))))
+   sum(Int32.(any_subset.(parse.(input))))
 end
 
 function sol2(input)
-   sum(Int32.(map(Base.splat(any_overlap), parse.(input))))
+   sum(Int32.(any_overlap.(parse.(input))))
 end
 
 readlines("../input/4.txt") |> sol1 |> println
