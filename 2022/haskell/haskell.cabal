@@ -24,10 +24,10 @@ extra-source-files: CHANGELOG.md
 executable haskell
     main-is:          Main.hs
     -- Modules included in this executable, other than Main.
-    other-modules: Day1, Day2
+    other-modules: Day1, Day2, Day3
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.17.0.0, text
+    build-depends:    base ^>=4.17.0.0, text, containers, split
     hs-source-dirs:   src
     default-language: Haskell2010
     default-extensions:
