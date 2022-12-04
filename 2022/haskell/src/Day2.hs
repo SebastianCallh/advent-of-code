@@ -35,5 +35,9 @@ strategy (op, me)
   | me == 3 = (op, winning op)
 
 sol1 = sum . score . parseRounds
-
 sol2 = sum . score . fmap strategy . parseRounds
+sol input = putStrLn $ mconcat [
+    show $ sol1 input,
+    " ",
+    show $ sol2 input
+  ]

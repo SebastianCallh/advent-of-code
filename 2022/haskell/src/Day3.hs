@@ -25,3 +25,8 @@ groups = chunksOf 3
 
 sol1 = sum . fmap (score . overlap . compartments) . T.lines
 sol2 = sum . fmap (score . overlap) . groups . T.lines
+sol input = putStrLn $ mconcat [
+    show $ sol1 input,
+    " ",
+    show $ sol2 input
+  ]

@@ -13,5 +13,9 @@ sortedSums contents =
     parts = T.splitOn "\n\n" contents
 
 sol1 = head . sortedSums
-
-sol2  = sum . take 3 . sortedSums
+sol2 = sum . take 3 . sortedSums
+sol input = putStrLn $ mconcat [
+    show $ sol1 input,
+    " ",
+    show $ sol2 input
+  ]

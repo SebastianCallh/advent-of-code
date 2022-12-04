@@ -26,3 +26,8 @@ toint False = 0
 
 sol1 = sum . fmap (toint . subsets . parse) . T.lines
 sol2 = sum . fmap (toint . overlaps . parse) . T.lines
+sol input = putStrLn $ mconcat [
+    show $ sol1 input,
+    " ",
+    show $ sol2 input
+  ]
