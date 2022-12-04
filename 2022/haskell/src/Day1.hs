@@ -1,6 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
-
-module Day1 (sol1, sol2) where
+module Day1 where
 import Data.List
 import qualified Data.Text as T
 import qualified Data.Text.Read as T
